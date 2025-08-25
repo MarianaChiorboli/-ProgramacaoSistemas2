@@ -1,6 +1,7 @@
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class AppStreaming {
 
@@ -16,58 +17,94 @@ public class AppStreaming {
             System.out.println("(4) Sair"); 
             System.out.print("Escolha uma opção: ");
 
-            opcao = entrada.nextInt();
-            entrada.nextLine(); 
+            try {
+                opcao = entrada.nextInt();
+                entrada.nextLine(); 
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida!Opções apenas números de 1 a 4");
+                entrada.nextLine(); 
+                opcao = 0; 
+            }
 
             switch (opcao) {
                 case 1:
                     System.out.print("Digite o título do filme: ");
                     String tituloFilme = entrada.nextLine();
-                    System.out.print("Digite a duração do filme (em minutos): ");
-                    long duracaoFilme = entrada.nextLong();
-                    entrada.nextLine(); 
-                    
-                    Filme novoFilme = new Filme(tituloFilme, duracaoFilme);
-                    midias.add(novoFilme);
-                    System.out.println("Filme adicionado com sucesso!");
-                    break;
-                case 2:
-                    System.out.print("Digite o título da série: ");
-                    String tituloSerie = entrada.nextLine();
-                    Serie novaSerie = new Serie(tituloSerie);
 
-                    for (int i = 1; i <= 2; i++) {
-                        Temporada novaTemporada = new Temporada(i);
-                        System.out.println("--- Adicionando episódios para a temporada " + i + " ---");
-                        
-                        for (int j = 1; j <= 2; j++) {
-                            System.out.print("Digite o título do " + j + "º episódio: ");
-                            String tituloEp = entrada.nextLine();
-                            System.out.print("Digite a duração do " + j + "º episódio (em minutos): ");
-                            long duracaoEp = entrada.nextLong();
-                            entrada.nextLine();
-                            novaTemporada.adicionar(new Episodio(tituloEp, duracaoEp));
+                    try {
+                        System.out.print("Digite a duração do filme (em minutos): ");
+                        long duracaoFilme = entrada.nextLong();
+                        entrada.nextLine();
+
+                        if (duracaoFilme <= 0) {
+                            System.out.println("A duração deve ser maior que 0.");
+                        } else {
+                            Filme novoFilme = new Filme(tituloFilme, duracaoFilme);
+                            midias.add(novoFilme);
+                            System.out.println("Filme adicionado!");
                         }
-                        novaSerie.adicionar(novaTemporada);
+                    } catch (InputMismatchException e) {
+                        System.out.println("Entrada inválida para duração. Digite apenas números.");
+                        entrada.nextLine();
                     }
-                    midias.add(novaSerie);
-                    System.out.println("Série adicionada com sucesso!");
                     break;
+
+                case 2:
+                    System.out.print("Digite o título da série: "); 
+                    String tituloSerie = entrada.nextLine();
+                    Serie serie = new Serie(tituloSerie);
+
+                    for (int t = 1; t <= 2; t++) {
+                        Temporada temporada = new Temporada(t);
+
+                        for (int e = 1; e <= 2; e++) {
+                            System.out.print("Nome do episódio " + e + " da temporada " + t + ": ");
+                            String tituloEp = entrada.nextLine();
+
+                            long duracaoEp = 0;
+                            boolean valido = false;
+
+                            while (!valido) {
+                                try {
+                                    System.out.print("Duração do episódio (em minutos): ");
+                                    duracaoEp = entrada.nextLong();
+                                    entrada.nextLine();
+
+                                    if (duracaoEp <= 0) {
+                                        System.out.println(" A duração deve ser maior que 0.");
+                                    } else {
+                                        valido = true;
+                                    }
+                                } catch (InputMismatchException ex) {
+                                    System.out.println(" Entrada inválida. Digite apenas números.");
+                                    entrada.nextLine();
+                                }
+                            }
+
+                            temporada.adicionar(new Episodio(tituloEp, duracaoEp));
+                        }
+                        serie.adicionar(temporada);
+                    }
+
+                    midias.add(serie);
+                    System.out.println("Série adicionada!");
+                    break;
+
                 case 3:
                     if (midias.isEmpty()) {
                         System.out.println("Nenhuma mídia cadastrada.");
                     } else {
-                        System.out.println("--- LISTA DE MÍDIAS ---");
+                        System.out.println("LISTA DE MÍDIAS ");
                         for (Midia m : midias) {
                             System.out.println(m.info());
                         }
                     }
                     break;
                 case 4:
-                    System.out.println("Saindo do programa. Até logo!");
+                    System.out.println("Encerrando");
                     break;
                 default:
-                    System.out.println("Opção inválida. Por favor, escolha uma opção válida.");
+                    System.out.println("Opção inválida.");
             }
 
             System.out.println(); 

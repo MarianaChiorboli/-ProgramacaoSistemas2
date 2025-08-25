@@ -14,16 +14,16 @@ public class Serie extends Midia {
     }
 
     @Override
-    public String info() {
-        return "Série: " + super.info() + "; Duração total: " + getDuracao() + " minutos";
+    public long getDuracao() {
+        long total = 0;
+        for (Temporada t : temporadas) {
+            total += t.getDuracao();
+        }
+        return total;
     }
 
     @Override
-    public long getDuracao() {
-        long duracaoTotal = 0;
-        for (Temporada temporada : temporadas) {
-            duracaoTotal += temporada.getDuracao();
-        }
-        return duracaoTotal;
+    public String info() {
+        return "Série: " + getTitulo() + "; Duração total: " + getDuracao() + " min";
     }
 }

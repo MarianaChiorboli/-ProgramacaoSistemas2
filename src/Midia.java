@@ -5,6 +5,10 @@ public abstract class Midia {
         this.titulo = titulo;
     }
 
+    public String getTitulo() {
+        return titulo;
+    }
+
     public String info() {
         return "Título: " + titulo;
     }
