@@ -107,7 +107,6 @@ public class AppStreaming {
                     System.out.println("Opção inválida.");
             }
 
-            System.out.println(); 
 
         } while (opcao != 4);
 
