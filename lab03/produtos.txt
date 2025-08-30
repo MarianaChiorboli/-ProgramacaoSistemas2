@@ -1,0 +1,21 @@
+Teclado do professor;50;Logitech
+Mouse;35;Microsoft
+Pão de queijo;100;Borges
+Coca-cola;10;Bar do Zé
+Teclado Multimidia;200;Microsoft
+Celular;5000;Samsung
+Livro de colorir;30;Bobbies Goods
+Ingresso the Town;400;Show
+Mesa;50;Movel
+Webcam Full HD;120;Logitech
+Microfone condensador;300;Blue
+Câmera digital;1200;Canon
+Mochila para notebook;90;Samsonite
+Cadeira de escritório;350;Flexform
+Luminária de mesa;60;Xiaomi
+Headset gamer;250;HyperX
+Placa de vídeo RTX 3060;2500;NVIDIA
+SSD 1TB;400;Samsung
+HD Externo 2TB;300;Seagate
+Tablet;1800;Apple
+
